@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
+
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Project documentation (not secret, but not needed in repo root)
+/project_docs/
