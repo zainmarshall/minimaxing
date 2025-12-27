@@ -1,14 +1,30 @@
-# This file can be used to manage database connections and queries
+"""This file manages Supabase connections and queries.
+
+It will attempt to load environment variables from a `.env` file
+if `python-dotenv` is installed. If no Supabase credentials are
+present, it falls back to an in-memory placeholder.
+"""
 
 import os
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    # python-dotenv not installed or .env not present — continue
+    pass
+
 from supabase import create_client, Client
 from models import BotModel, Match
 
 # Initialize Supabase client
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
+SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
 
-if SUPABASE_URL and SUPABASE_ANON_KEY:
+# Prefer service key for privileged server operations when available
+if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+    supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
+elif SUPABASE_URL and SUPABASE_ANON_KEY:
     supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
 else:
     supabase = None  # Fallback to in-memory

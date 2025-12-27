@@ -19,6 +19,7 @@ node_modules/
 
 # Environment variables
 .env
+backend/.env
 
 # Project documentation (not secret, but not needed in repo root)
 /project_docs/
